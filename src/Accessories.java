@@ -1,3 +1,3 @@
-public class Accessories {
+public class Accessories extends Product{
     
 }

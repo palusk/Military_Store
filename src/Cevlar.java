@@ -1,3 +1,3 @@
-public class Cevlar {
+public class Cevlar extends Product {
     
 }

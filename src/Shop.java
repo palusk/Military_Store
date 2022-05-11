@@ -5,31 +5,30 @@ public class Shop{
 public void menu(){
 
 
-    System.out.println("Logowanie - 1");
-    System.out.println("Rejestracja - 2");
-    System.out.println("Produkty - 3");
+    System.out.println("Login - 1");
+    System.out.println("Registration - 2");
+    System.out.println("Products - 3");
     Scanner input = new Scanner(System.in);
     int key = input.nextInt();
     
     switch(key){
         
         case 1:
-        System.out.println("wybrano logowanie");
+        System.out.println("You choose login section");
         log_in();
         break;
         
         case 2:
-        System.out.println("wybrano rejestracje");
+        System.out.println("You choose registration section");
         registration();
-        System.out.println((accountsList.get(0)).username);
         break;
         
         case 3:
-        System.out.println("wybrano produkty");
+        System.out.println("You choose products section");
+        produkty();
         break;
 
         default:
-        System.out.println((accountsList.get(0)).username);
         break;
         
     }
@@ -69,4 +68,40 @@ public void log_in()
     }else System.out.println("Bad password or login!");
 }
 
+
+
+public void produkty(){
+    Scanner input = new Scanner(System.in);
+    System.out.println("1. Weapons");
+    System.out.println("2. Cevlars");
+    System.out.println("3. Helmets");
+    System.out.println("4. Clothes");
+    System.out.println("5. Accessories");
+    int key2 = input.nextInt();
+    switch(key2){
+        case 1:
+        System.out.println("Weapons:");
+        break;
+        
+        case 2:
+        System.out.println("Cevlars:");
+        break;
+        
+        case 3:
+        System.out.println("Helmets:");
+        break;
+
+        case 4:
+        System.out.println("Clothes:");
+        break;
+
+        case 5:
+        System.out.println("Accessories:");
+        break;
+
+        default:
+        break;
+}
+
+}
 }

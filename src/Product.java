@@ -4,6 +4,7 @@ int id;
 String productName;
 String productType;
 String description;
+int quantity; 
 
 
 }

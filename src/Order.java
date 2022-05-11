@@ -8,6 +8,7 @@ public void pointsDiscount()
 public void discountCode()
 {}
 
-public void finalization()
-{}
+public void finalization() {
+    ;
+}
 }

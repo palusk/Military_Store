@@ -4,7 +4,7 @@ public class Cart {
     
 int Value;
 
-ArrayList<Account> accountsList = new ArrayList<Account>();
+ArrayList<Product> CartList = new ArrayList<Product>();
 
 public void add()
 {}

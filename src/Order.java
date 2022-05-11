@@ -1,16 +1,16 @@
 public class Order {
 
-int discountCodeTable[];
+    int discountCodeTable[];
 
-public void pointsDiscount() {
+    public void pointsDiscount() {
 
-}
+    }
 
-public void discountCode() {
-    
-}
+    public void discountCode() {
+        
+    }
 
-public void finalization() {
+    public void finalization() {
 
-}
+    }
 }

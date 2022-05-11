@@ -2,20 +2,20 @@ import java.util.ArrayList;
 
 public class Cart {
     
-int Value;
+    int Value;
 
-ArrayList<Product> CartList = new ArrayList<Product>();
+    ArrayList<Product> CartList = new ArrayList<Product>();
 
-public void add() {
+    public void add() {
 
-}
+    }
 
-public void remove() {
+    public void remove() {
 
-}
+    }
 
-public void viewCart() {
-    
-}
+    public void viewCart() {
+        
+    }
 
 }

@@ -57,14 +57,16 @@ public void log_in()
     String log = input.nextLine();
     System.out.println("PASSWORD: ");
     String pass = input.nextLine();
+    boolean success = false; 
     for( Account element: accountsList)
     {
-        if (element.username == log && element.password == pass)
-        {
-            System.out.println("udalo sie!");
-        }else System.out.println("nie udalo sie :(");
+        if (element.username.equals(log) && element.password.equals(pass)){
+            success = true;
+        }
     }
-
+    if (success){
+        System.out.println("Hello "+log+"!");
+    }else System.out.println("Bad password or login!");
 }
 
 }

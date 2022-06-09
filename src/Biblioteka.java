@@ -35,11 +35,11 @@
       }
   
       public boolean createTables()  {
-          String createKonta = "CREATE TABLE IF NOT EXISTS czytelnicy (username varchar(255) PRIMARY KEY, password varchar(255), accountBalance int, points int)";
-          String createKsiazki = "CREATE TABLE IF NOT EXISTS Produkty (id INTEGER PRIMARY KEY AUTOINCREMENT, price int, productName varchar(255), productType varchar(255), quantity int)";
+          String createKonta = "CREATE TABLE IF NOT EXISTS konta (username varchar(255) PRIMARY KEY, password varchar(255), accountBalance int, points int)";
+          String createProdukty = "CREATE TABLE IF NOT EXISTS Produkty (id INTEGER PRIMARY KEY AUTOINCREMENT, price int, productName varchar(255), productType varchar(255), quantity int, description varchar(255))";
         try {
               stat.execute(createKonta);
-              stat.execute(createKsiazki);
+              stat.execute(createProdukty);
           } catch (SQLException e) {
               System.err.println("Blad przy tworzeniu tabeli");
               e.printStackTrace();
@@ -51,7 +51,7 @@
       public boolean insertKonta(String username, String password, int accountBalance, int points) {
           try {
               PreparedStatement prepStmt = conn.prepareStatement(
-                      "insert into czytelnicy values (NULL, ?, ?, ?);");
+                      "insert into konta values (?, ?, ?, ?);");
               prepStmt.setString(1, username);
               prepStmt.setString(2, password);
               prepStmt.setInt(3, accountBalance);
@@ -65,14 +65,16 @@
           return true;
       }
   
-      public boolean insertKsiazka(int price, String productName, String productType, int quantity) {
+      public boolean insertProdukty(int price, String productName, String productType, int quantity, String description) {
           try {
               PreparedStatement prepStmt = conn.prepareStatement(
-                      "insert into ksiazki values (NULL, ?, ?, ?, ?);");
+                      "insert into produkty values (NULL, ?, ?, ?, ?, ?);");
               prepStmt.setInt(1, price);
               prepStmt.setString(2, productName);
               prepStmt.setString(3, productType);
               prepStmt.setInt(4, quantity);
+              prepStmt.setString(5, description);
+              
               prepStmt.execute();
           } catch (SQLException e) {
               System.err.println("Blad przy wypozyczaniu");
@@ -81,10 +83,10 @@
           return true;
       }
   
-      public List<Konta> selectCzytelnicy() {
-          List<Konta> czytelnicy = new LinkedList<Konta>();
+      public List<Konta> selectKonta() {
+          List<Konta> konta = new LinkedList<Konta>();
           try {
-              ResultSet result = stat.executeQuery("SELECT * FROM czytelnicy");
+              ResultSet result = stat.executeQuery("SELECT * FROM konta");
               int accountBalance, points;
               String username, password;
               while(result.next()) {
@@ -92,32 +94,36 @@
                 password = result.getString("password");
                 accountBalance = result.getInt("accountBalance");
                 points = result.getInt("points");
-                  czytelnicy.add(new Konta(username, password, accountBalance, points));
+                  konta.add(new Konta(username, password, accountBalance, points));
               }
           } catch (SQLException e) {
               e.printStackTrace();
               return null;
           }
-          return czytelnicy;
+          return konta;
       }
   
-      public List<Ksiazka> selectKsiazki() {
-          List<Ksiazka> ksiazki = new LinkedList<Ksiazka>();
+      public List<Produkty> selectProdukty() {
+          List<Produkty> produkty = new LinkedList<Produkty>();
           try {
-              ResultSet result = stat.executeQuery("SELECT * FROM ksiazki");
-              int id;
-              String tytul, autor;
+              ResultSet result = stat.executeQuery("SELECT * FROM produkty");
+              int id, price, quantity;
+              String productName, productType, description;
               while(result.next()) {
-                  id = result.getInt("id_ksiazki");
-                  tytul = result.getString("tytul");
-                  autor = result.getString("autor");
-                  ksiazki.add(new Ksiazka(id, tytul, autor));
+                  id = result.getInt("id");
+                  price = result.getInt("price");
+                  productName = result.getString("productName");
+                  productType = result.getString("productType");
+                  quantity = result.getInt("quantity");
+                  description = result.getString("description");
+
+                  produkty.add(new Produkty(id, price, productName, productType, quantity, description));
               }
           } catch (SQLException e) {
               e.printStackTrace();
               return null;
           }
-          return ksiazki;
+          return produkty;
       }
   
       public void closeConnection() {

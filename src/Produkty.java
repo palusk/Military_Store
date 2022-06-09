@@ -1,9 +1,10 @@
-  public class Ksiazka {
+  public class Produkty {
       private int id;
       private int price;
       private String productName;
       private String productType;
       private int quantity;
+      private String description;
   
       public int getId() {
           return id;
@@ -35,18 +36,25 @@
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
   
-      public Ksiazka() {}
-      public Ksiazka(int id, int price, String productName, String productType, int quantity) {
+      public Produkty() {}
+      public Produkty(int id, int price, String productName, String productType, int quantity, String description) {
           this.id = id;
           this.price = price;
           this.productName = productName;
           this.productType = productType;
           this.quantity = quantity;
+          this.description = description;
       }
   
       @Override
       public String toString() {
-          return "["+id+"] - "+price+" - "+productName+" - "+productType+" - "+quantity;
+          return "["+id+"] - "+price+" - "+productName+" - "+productType+" - "+quantity+" - "+description;
       }
   }

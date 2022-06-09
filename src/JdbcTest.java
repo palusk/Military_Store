@@ -4,23 +4,23 @@ import java.util.List;
   
       public static void main(String[] args) {
           Biblioteka b = new Biblioteka();
-          b.insertKonta("Karol", "Maciaszek", 0, 0);
-          b.insertKonta("Piotr", "Wojtecki", 0, 0);
-          b.insertKonta("Abdul", "Dabdul", 0, 0);
+          b.insertKonta("Admin", "Admin", 100, 20);
+          b.insertKonta("Mati", "123", 10, 0);
+          b.insertKonta("Kamil", "123", 20, 0);
   
-          b.insertKsiazka("Cień Wiatru", "Carlos Ruiz Zafon");
-          b.insertKsiazka("W pustyni i w puszczy", "Henryk Sienkiewicz");
-          b.insertKsiazka("Harry Potter", "Joanne Kathleen Rowling.");
+          b.insertProdukty(100,"kask bialy", "helm",1,"aaa");
+          b.insertProdukty(200,"pistolet", "bron",2,"bbb");
+          b.insertProdukty(2000,"kamizelka duza", "kamizelki",2,"ccc");
   
-          List<Konta> czytelnicy = b.selectCzytelnicy();
-          List<Ksiazka> ksiazki = b.selectKsiazki();
+          List<Konta> konta = b.selectKonta();
+          List<Produkty> produkty = b.selectProdukty();
   
           System.out.println("Lista Kont: ");
-          for(Konta c: czytelnicy)
+          for(Konta c: konta)
               System.out.println(c);
   
-          System.out.println("Lista książek:");
-          for(Ksiazka k: ksiazki)
+          System.out.println("Lista produkty:");
+          for(Produkty k: produkty)
               System.out.println(k);
   
           b.closeConnection();

@@ -1,3 +1,3 @@
-public class Clothes extends Product{
+public class Clothes extends Product {
     
 }

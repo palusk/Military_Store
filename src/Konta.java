@@ -37,6 +37,11 @@ public class Konta {
         this.points = points;
     }
 
+    public Konta(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "["+username+"] - "+password+" "+accountBalance+" - "+points;

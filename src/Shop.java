@@ -1,11 +1,26 @@
 import java.util.Scanner;
-import java.util.ArrayList;
-public class Shop{
+import java.util.List;
 
-    ArrayList<Account> accountsList = new ArrayList<Account>();
+public class Shop{
+    Biblioteka a = new Biblioteka();
+    List<Konta> accountsList = a.selectKontaById();
+    List<Produkty> products = a.selectProdukty();
+
+public void print(String type){
+    for( Produkty element: products) {
+        if (element.getProductType().equals(type)) {
+            System.out.println(element);
+        }
+    }
+}
 
 public void menu(){
 
+
+          for(Konta c: accountsList)
+              System.out.println(c);
+
+    a.removeKonta("chujowysklep");
     System.out.println("Login - 1");
     System.out.println("Registration - 2");
     System.out.println("Products - 3");
@@ -46,8 +61,10 @@ public void registration() {
     String log = input.nextLine();
     System.out.println("PASSWORD: ");
     String pass = input.nextLine();
-    accountsList.add(new Account(log,pass));
-//System.out.println((accountsList.get(0)).username);
+    
+    a.insertKonta(log,pass,0,0);
+    System.out.println("Successful registration, welcom to our family "+log);
+
 }
 
 
@@ -60,8 +77,8 @@ public void log_in() {
     System.out.println("PASSWORD: ");
     String pass = input.nextLine();
     boolean success = false; 
-    for( Account element: accountsList) {
-        if (element.username.equals(log) && element.password.equals(pass)) {
+    for( Konta element: accountsList) {
+        if (element.getUsername().equals(log) && element.getPassword().equals(pass)) {
             success = true;
         }
     }
@@ -72,8 +89,12 @@ public void log_in() {
 
 
 
+
+
 public void produkty(){
+    
     Scanner input = new Scanner(System.in);
+    
     System.out.println("1. Weapons");
     System.out.println("2. Cevlars");
     System.out.println("3. Helmets");
@@ -96,6 +117,8 @@ public void produkty(){
 switch(key2) {
 case 1:
 System.out.println("Assault rifles:");
+print("bron");
+
 key2 = input.nextInt();
 System.out.println();
 break;

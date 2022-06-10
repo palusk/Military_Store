@@ -64,7 +64,7 @@
           }
           return true;
       }
-  
+
       public boolean insertProdukty(int price, String productName, String productType, int quantity, String description) {
           try {
               PreparedStatement prepStmt = conn.prepareStatement(
@@ -102,8 +102,40 @@
           }
           return konta;
       }
+
+      public List<Konta> selectKontaById() {
+        List<Konta> konta = new LinkedList<Konta>();
+        try {
+            ResultSet result = stat.executeQuery("SELECT username, password FROM konta");
+            String username, password;
+            while(result.next()) {
+              username = result.getString("username");
+              password = result.getString("password");
+                konta.add(new Konta(username, password));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return konta;
+    }
+
+    public boolean removeKonta(String username) {
+        try{
+        PreparedStatement prepStmt = conn.prepareStatement(
+            "DELETE FROM konta WHERE username = ?");
+        prepStmt.setString(1, username);
+        prepStmt.execute();
+        }catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("ERROR while removing user");
+            return false;
+        }
+        return true;
+    }
+
   
-      public List<Produkty> selectProdukty() {
+      public List<Produkty> selectAllProdukty() {
           List<Produkty> produkty = new LinkedList<Produkty>();
           try {
               ResultSet result = stat.executeQuery("SELECT * FROM produkty");
@@ -125,6 +157,55 @@
           }
           return produkty;
       }
+
+
+      public List<Produkty> selectProductType(String Type) {
+        List<Produkty> produkty = new LinkedList<Produkty>();
+        try {
+            ResultSet result = stat.executeQuery("SELECT * FROM produkty WHERE productType = \""+Type+"\"");
+            int id, price, quantity;
+            String productName, productType, description;
+            while(result.next()) {
+                id = result.getInt("id");
+                price = result.getInt("price");
+                productName = result.getString("productName");
+                productType = result.getString("productType");
+                quantity = result.getInt("quantity");
+                description = result.getString("description");
+
+                produkty.add(new Produkty(id, price, productName, productType, quantity, description));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return produkty;
+    }
+
+
+    public List<Produkty> selectProdukty() {
+        List<Produkty> produkty = new LinkedList<Produkty>();
+        try {
+            ResultSet result = stat.executeQuery("SELECT * FROM produkty WHERE quantity != 0");
+            int id, price, quantity;
+            String productName, productType, description;
+            while(result.next()) {
+                id = result.getInt("id");
+                price = result.getInt("price");
+                productName = result.getString("productName");
+                productType = result.getString("productType");
+                quantity = result.getInt("quantity");
+                description = result.getString("description");
+
+                produkty.add(new Produkty(id, price, productName, productType, quantity, description));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return produkty;
+    }
+
   
       public void closeConnection() {
           try {

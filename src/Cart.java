@@ -14,14 +14,16 @@ public class Cart {
     
 
     public void add(int id) {
-
+        products = c.selectProdukty();
         boolean success = false; 
         for( Produkty element: products) {
             if (element.getId()==id) {
+                if(element.getQuantity()>0){
                 success = true;
                 value += element.getPrice();
                 CartList[index] = element.getId();
                 index++;
+                }else System.out.println("Currently we dont have this product!");
             }
         }
         if (success) {
@@ -31,6 +33,7 @@ public class Cart {
 } 
 
      public void remove(int id) {
+        products = c.selectProdukty();
 
         boolean found = false;
         for(int i = 0; i<index; i++){
@@ -49,11 +52,12 @@ public class Cart {
             }
         }
         if(found == false)System.out.println("Not found item with this id in cart!");
-
     }
 
     public void viewCart() {
-
+        products = c.selectProdukty();
+        System.out.println("Items in your cart:");
+        System.out.println();
 for(int i = 0; i<index; i++){
     if(CartList[i] != -1){
         int id = CartList[i];
@@ -71,4 +75,20 @@ for(int i = 0; i<index; i++){
 
 }
 }
+
+    void purchase(boolean Logged){
+        if(Logged){
+        products = c.selectProdukty();
+        c.removeQuantity(CartList, index);
+        for(int i = 0; i<index; i++){
+            CartList [i] = -1;
+    }
+    index = 0;
+    }else {System.out.println("Please login to commit purchase ");
+    System.out.println();
+}
+}
+
+    
+
 }

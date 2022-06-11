@@ -215,4 +215,34 @@
               e.printStackTrace();
           }
       }
+
+      public boolean removeQuantity(int tab[], int index) {
+        try {
+
+                List<Produkty> Produkty = selectProdukty();
+                
+                for(int i = 0; i<index; i++){
+                    int quan=0;
+                if(tab[i]!=-1){
+
+                    for( Produkty element: Produkty) {
+                        if (element.getId()==tab[i]) {
+                            quan=element.getQuantity();
+                           
+                        }  
+                    }
+                    quan--;
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "UPDATE Produkty SET quantity = ? WHERE id = ?;");
+                    prepStmt.setInt(1, quan);
+                    prepStmt.setInt(2, tab[i]);
+            prepStmt.execute();
+        }}
+        } catch (SQLException e) {
+            System.err.println("Blad przy wstawianiu Konta");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
   }

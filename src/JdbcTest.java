@@ -5,7 +5,7 @@ import java.util.List;
       public static void main(String[] args) {
           Biblioteka b = new Biblioteka();
 
-          b.insertProdukty(100,"kask bialy", "a",1,"aaa");
+    
   
           List<Konta> konta = b.selectKonta();
           List<Produkty> produkty = b.selectProdukty();

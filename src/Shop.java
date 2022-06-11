@@ -9,6 +9,8 @@ public class Shop{
    
     Account admin = new Account("admin","admin");
     Account LoggedUser = admin;
+    boolean logged = false;
+    boolean adm = false;
     
 
 public void print(String type){
@@ -18,6 +20,7 @@ public void print(String type){
         }
     }
 }
+
 public void buy(String type){
     Scanner input = new Scanner(System.in);
     System.out.println("Insert id to add to cart or anything else to exit this section");
@@ -36,16 +39,21 @@ public void buy(String type){
     }
     if (success == false) System.out.println("Wrong id!");
 }
+
 public void buyMenu(String type){
 System.out.println(type+":");
 print(type);
 buy(type);
 }
+
 public void menu(){
 
     System.out.println("Login - 1");
     System.out.println("Registration - 2");
     System.out.println("Products - 3");
+    System.out.println("Cart - 4");
+    if(adm==true)System.out.println("Admin panel - 5");
+
     
     Scanner input = new Scanner(System.in);
     int key = input.nextInt();
@@ -58,13 +66,52 @@ public void menu(){
         break;
         
         case 2:
-        System.out.println("You choose registration section");
-        registration();
+            System.out.println("You choose registration section");
+            registration();
         break;
         
         case 3:
-        System.out.println("You choose products section");
-        produkty();
+            System.out.println("You choose products section");
+            produkty();
+        break;
+
+        case 4:
+        boolean exit = true;
+        while(exit){
+            System.out.println("You choose cart section");
+            System.out.println();
+            LoggedUser.userCart.viewCart();
+            System.out.println();
+            System.out.println("Commit purchase - 1");
+            System.out.println("Remove from cart - 2");
+            System.out.println("Return to menu - 3");
+            key = input.nextInt();
+            switch(key){
+            case 1:
+            LoggedUser.userCart.purchase(logged);
+            break;
+
+            case 2:
+            System.out.println("Chose the id of the product you want to remove");
+            key = input.nextInt();
+            LoggedUser.userCart.remove(key);
+            break;
+            case 3:
+            exit = false;
+            break;
+            }
+            
+            }
+
+
+        
+        break;
+
+        case 5:
+            if(adm==true){
+            System.out.println("You choose Admin panel");
+        
+        }
         break;
 
         default:
@@ -104,6 +151,8 @@ public void log_in() {
     }
     if (success) {
         System.out.println("Hello "+log+"!");
+        logged = true;
+        if(log.equals("Admin")) adm = true;
     }else System.out.println("Bad password or login!");
 }
 

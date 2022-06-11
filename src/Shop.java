@@ -6,6 +6,11 @@ public class Shop{
     List<Konta> accountsList = a.selectKontaById();
     List<Produkty> products = a.selectProdukty();
 
+   
+    Account admin = new Account("admin","admin");
+    Account LoggedUser = admin;
+    
+
 public void print(String type){
     for( Produkty element: products) {
         if (element.getProductType().equals(type)) {
@@ -13,14 +18,31 @@ public void print(String type){
         }
     }
 }
+public void buy(String type){
+    Scanner input = new Scanner(System.in);
+    System.out.println("Insert id to add to cart or anything else to exit this section");
+    int id = input.nextInt();
+    
+    
 
+
+    boolean success = false; 
+    for( Produkty element: products) {
+        if ((element.getProductType()).equals(type)&&element.getId()==id) {
+            LoggedUser.userCart.add(id);
+            System.out.println("Item with id "+id+" added to the cart.");
+            success = true;
+        }
+    }
+    if (success == false) System.out.println("Wrong id!");
+}
+public void buyMenu(String type){
+System.out.println(type+":");
+print(type);
+buy(type);
+}
 public void menu(){
 
-
-          for(Konta c: accountsList)
-              System.out.println(c);
-
-    a.removeKonta("chujowysklep");
     System.out.println("Login - 1");
     System.out.println("Registration - 2");
     System.out.println("Products - 3");
@@ -67,8 +89,6 @@ public void registration() {
 
 }
 
-
-
 public void log_in() {
     Scanner input = new Scanner(System.in);
     System.out.println("LOGOWANIE");
@@ -87,175 +107,130 @@ public void log_in() {
     }else System.out.println("Bad password or login!");
 }
 
-
-
-
-
 public void produkty(){
     
     Scanner input = new Scanner(System.in);
     
-    System.out.println("1. Weapons");
-    System.out.println("2. Cevlars");
-    System.out.println("3. Helmets");
-    System.out.println("4. Clothes");
-    System.out.println("5. Accessories");
+    System.out.println("1. Weapons");       System.out.println("2. Military Vests");        System.out.println("3. Helmets");       System.out.println("4. Military Clothes");       System.out.println("5. Accessories");    System.out.println("6. Backpacks");   System.out.println();
+    int mainType = input.nextInt();
     System.out.println();
-    int key2 = input.nextInt();
-    System.out.println();
-    switch(key2) {
+    
+    switch(mainType) {
         case 1:
-        System.out.println("Weapons:");
-        System.out.println("1. Assault rifles");
-        System.out.println("2. Pistols");
-        System.out.println("3. Sniper rifles");
-        System.out.println("4. Sniper rifles");
-        System.out.println();
-        key2 = input.nextInt();
-        System.out.println();
+            System.out.println("Weapons:");     System.out.println("1. Assault rifles");     System.out.println("2. Pistols");   System.out.println("3. Sniper rifles");     System.out.println("4. Machine pistols");       System.out.println("5. Shotguns");        System.out.println();
+            int Type = input.nextInt();
+            System.out.println();
 
-switch(key2) {
-case 1:
-System.out.println("Assault rifles:");
-print("bron");
+            switch(Type) {
+            case 1:
+            buyMenu("Assault rifles");
+            break;
 
-key2 = input.nextInt();
-System.out.println();
-break;
+            case 2:
+            buyMenu("Pistols");
+            break;
 
-case 2:
-System.out.println("Pistols:");
-key2 = input.nextInt();
-System.out.println();
-break;
+            case 3:
+            buyMenu("Sniper rifles");
+            break;
 
-case 3:
-System.out.println("Sniper rifles:");
-key2 = input.nextInt();
-System.out.println();
-break;
+            case 4:
+            buyMenu("Machine pistols");
+            break;
 
-case 4:
-System.out.println("Shotguns:");
-key2 = input.nextInt();
-System.out.println();
-break;
-}
-
-        break;
+            case 5:
+            buyMenu("Shotguns");
+            break;
+            }break;
         
         case 2:
-        System.out.println("Cevlars:");
-        System.out.println("1. Heavy cevlars");
-        System.out.println("2. Normal cevlars");
-        System.out.println("3. Lightweight cevlars");
-        System.out.println();
-        key2 = input.nextInt();
-        System.out.println();
+            System.out.println("Military Vests:");      System.out.println("1. Heavy Vests");       System.out.println("2. Normal Vests");      System.out.println("3. Lightweight Vests");     System.out.println();
+            Type = input.nextInt();
+            System.out.println();
 
-        switch(key2){
-case 1:
-System.out.println("Heavy cevlars:");
-key2 = input.nextInt();
-System.out.println();
-break;
+            switch(Type){
+            case 1:
+            buyMenu("Heavy Vests");
+            break;
 
-case 2:
-System.out.println("Normal cevlars:");
-key2 = input.nextInt();
-System.out.println();
-break;
+            case 2:
+            buyMenu("Normal Vests");
+            break;
 
-case 3:
-System.out.println("Lightweight cevlars:");
-key2 = input.nextInt();
-System.out.println();
-break;
+            case 3:
+            buyMenu("Lightweight Vests");
+            break;
 
-        }
-        break;
+            }break;
         
         case 3:
-        System.out.println("Helmets:");
-        System.out.println("1. Balistic helmets");
-        System.out.println("2. Industrial helmets");
-        System.out.println();
-        key2 = input.nextInt();
-        System.out.println();
-
-        switch(key2){
-            case 1:
-            System.out.println("Balistic helmets:");
-            key2 = input.nextInt();
+            System.out.println("Helmets:");      System.out.println("1. Balistic helmets");     System.out.println("2. Tactical helmets");      System.out.println();
+            Type = input.nextInt();
             System.out.println();
+
+            switch(Type){
+            case 1:
+            buyMenu("Balistic helmets");
             break;
             
             case 2:
-            System.out.println("Industrial helmets:");
-            key2 = input.nextInt();
-            System.out.println();
+            buyMenu("Tactical helmets");
             break;
             
-                    }
-
-        break;
+            }break;
 
         case 4:
-        System.out.println("Clothes:");
-        System.out.println("1. Military uniforms");
-        System.out.println("2. Camo uniforms");
-        System.out.println();
-        key2 = input.nextInt();
-        System.out.println();
-
-        switch(key2){
-            case 1:
-            System.out.println("Military uniforms:");
-            key2 = input.nextInt();
+            System.out.println("Military Clothes:");     System.out.println("1. Military uniforms");         System.out.println("2. Jackets");     System.out.println("3. Pants");         System.out.println("4. Boots");      System.out.println();
+            Type = input.nextInt();
             System.out.println();
-            break;
-            
-            case 2:
-            System.out.println("Camo uniforms:");
-            key2 = input.nextInt();
-            System.out.println();
-            break; 
-                    }
 
-        break;
+            switch(Type){
+                case 1:
+                buyMenu("Military uniforms");
+                break;
+                
+                case 2:
+                buyMenu("Jackets");
+                break; 
+
+                case 3:
+                buyMenu("Pants");
+                break; 
+
+                case 4:
+                buyMenu("Boots");
+                break; 
+
+            }break;
 
         case 5:
-        System.out.println("Accessories:");
-        System.out.println("1. Lotteries");
-        System.out.println("2. Watches");
-        System.out.println("3. Shawls");
-        System.out.println();
-        key2 = input.nextInt();
-        System.out.println();
-
-        switch(key2){
-            case 1:
-            System.out.println("Lotteries:");
-            key2 = input.nextInt();
+            System.out.println("Accessories:");     System.out.println("1. Headlamps");     System.out.println("2. Scarves");       System.out.println("3. Mechanix gloves");       System.out.println("4. Ballistic glasses");      System.out.println();
+            Type = input.nextInt();
             System.out.println();
-            break;
-            
-            case 2:
-            System.out.println("Watches:");
-            key2 = input.nextInt();
-            System.out.println();
-            break;
-            
-            case 3:
-            System.out.println("Shawls:");
-            key2 = input.nextInt();
-            System.out.println();
-            break;
-            
-                    }
 
-        break;
+            switch(Type){
+                case 1:
+                buyMenu("Headlamps");
+                break;
+                
+                case 2:
+                buyMenu("Scarves");
+                break;
+                
+                case 3:
+                buyMenu("Mechanix gloves");
+                break;
 
+                case 4:
+                buyMenu("Ballistic glasses");
+                break;
+                
+                }break;
+
+        case 6:
+            buyMenu("Backpacks");
+            break;
+        
         default:
         break;
     }

@@ -9,5 +9,6 @@ public class Account {
     public Account(String username, String password) {
         this.password = password;
         this.username = username;
+        this.userCart = new Cart();
     }
 }
